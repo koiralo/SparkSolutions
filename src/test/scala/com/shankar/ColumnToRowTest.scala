@@ -35,6 +35,6 @@ class ColumnToRowTest extends FunSuite with BeforeAndAfterEach {
   result.show(false)
   }
 
-  override protected def withFixture(test: Any): Outcome = ???
+//  override protected def withFixture(test: Any): Outcome = ???
 }
 
