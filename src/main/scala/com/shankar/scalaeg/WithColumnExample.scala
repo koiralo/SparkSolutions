@@ -26,7 +26,7 @@ object WithColumnExample  extends App{
     .parallelize(Seq("19931001","19930404", "19930603", "19930805")).toDF("DATE")
 
 
-  dfList.withColumn("DATE", dateToTimeStamp($"DATE")).show()
+//  dfList.withColumn("DATE", dateToTimeStamp($"DATE")).show()
 
   val dateToTimeStamp = udf((date: String) => {
     val stringDate = date.substring(0,4)+"/"+date.substring(4,6)+"/"+date.substring(6,8)
