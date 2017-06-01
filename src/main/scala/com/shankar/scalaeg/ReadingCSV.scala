@@ -15,15 +15,22 @@ object ReadingCSV extends App {
 
   val titschema = Encoders.product[tit].schema
 
-  val dfList = spark.read.schema(schema = titschema).csv("data.csv").as[tit]
+  val dfList1 = spark.read.option("inferSchema", true)csv("/home/sakoirala/IdeaProjects/SparkSolutions/src/main/resources/data1.csv")
+
+  dfList1.show()
+
+  val dfList = spark.createDataFrame(dfList1.rdd, titschema)
+
+  dfList1.printSchema()
+  dfList.printSchema()
 
   dfList.show()
 
-  case class tit(Num: Int,
+  case class tit(Num: String,
                  Class: String,
                  Survival_Code: Int,
                  Name: String,
-                 Age: Double,
+                 Age: Int,
                  Province: String,
                  Address: String,
                  Coach_No: String,

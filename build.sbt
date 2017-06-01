@@ -18,5 +18,7 @@ libraryDependencies ++= Seq(
   "org.apache.poi" % "poi-ooxml-schemas" % "3.16",
 //spark testing base
   "com.holdenkarau" %% "spark-testing-base" % "2.1.0_0.6.0" % "test",
-  "io.netty" % "netty" % "3.6.2.Final"
+  "io.netty" % "netty" % "3.6.2.Final",
+  // https://mvnrepository.com/artifact/com.crealytics/spark-excel_2.11
+  "com.crealytics" % "spark-excel_2.11" % "0.8.3"
 )

@@ -28,6 +28,9 @@ object WithColumnExample  extends App{
 
 //  dfList.withColumn("DATE", dateToTimeStamp($"DATE")).show()
 
+
+  dfList.where(col("DATE").like("%404")).show
+
   val dateToTimeStamp = udf((date: String) => {
     val stringDate = date.substring(0,4)+"/"+date.substring(4,6)+"/"+date.substring(6,8)
     val format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
