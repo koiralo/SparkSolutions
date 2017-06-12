@@ -31,7 +31,7 @@ object ReadExcelFile extends App{
 
     val row = rowIterator.next()
 
-    if (count > 6 && count < 493){
+    if (count > 6 && count < 492){
 
       val cellIterator = row.cellIterator()
 

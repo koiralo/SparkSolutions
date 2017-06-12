@@ -19,12 +19,14 @@ object ReadingCSV extends App {
 
   dfList1.show()
 
-  val dfList = spark.createDataFrame(dfList1.rdd, titschema)
+//  val dfList = spark.createDataFrame(dfList1.rdd, titschema)
 
   dfList1.printSchema()
-  dfList.printSchema()
+//  dfList.printSchema()
+//
+//  dfList.show()
 
-  dfList.show()
+  dfList1.coalesce(1).rdd.saveAsTextFile("/home/sakoirala/IdeaProjects/SparkSolutions/src/main/resources/testfile.csv")
 
   case class tit(Num: String,
                  Class: String,
