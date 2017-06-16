@@ -7,7 +7,9 @@ scalaVersion := "2.11.8"
 resolvers += "MavenRepository" at "https://mvnrepository.com/"
 
 libraryDependencies ++= Seq(
-  // https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.11
+  // https://mvnrepository.com/artifact/joda-time/joda-time
+  "joda-time" % "joda-time" % "2.8.1",
+// https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.11
   "org.apache.spark" % "spark-core_2.11" % "2.1.0",
 // https://mvnrepository.com/artifact/org.apache.spark/spark-sql_2.11
   "org.apache.spark" % "spark-sql_2.11" % "2.1.0",

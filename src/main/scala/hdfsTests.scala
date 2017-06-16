@@ -6,14 +6,18 @@ import org.apache.hadoop.fs.{FileSystem, Path}
   */
 object hdfsTests extends App{
 
-  val conf = new Configuration()
+/*  val conf = new Configuration()
 
   val path = new Path("hdfs://localhost:9000/tmp/")
 
   val fileSysTem =  FileSystem.get(conf)
 
-  fileSysTem.listStatus(path).foreach(println)
+  fileSysTem.listStatus(path).foreach(println)*/
 
+
+  val data = List(List("Hello ", "how ", "are ", "you"), List("fine ", "thank ", "you"))
+
+  data.map(_.mkString).foreach(println)
 
 
 }

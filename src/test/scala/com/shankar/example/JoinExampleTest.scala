@@ -187,7 +187,47 @@ import spark.implicits._
 
   }
 
+  test ("partition by example"){
+    val rdd=spark.sparkContext.parallelize(List(1,3,2,4,5,6,7,8).zip(List("a", "b", "c","a", "b", "c")),4)
 
+    import spark.implicits._
+    val df = rdd.toDF("values", "id").withColumn("csum", sum(col("values")).over(Window.partitionBy("id").orderBy("id")))
+    df.show()
+    println(s"numPartitions ${df.rdd.getNumPartitions}")
+  }
+
+  test ("test mrge "){
+    import spark.implicits._
+    val df1 = spark.sparkContext.parallelize(Seq(
+      (0,"John",3),
+    (1,"Paul",4),
+    (2,"George",5)
+    )).toDF("id", "uid1", "var1")
+
+    import spark.implicits._
+    val df2 = spark.sparkContext.parallelize(Seq(
+      (0,"John",23),
+      (1,"Paul",44),
+      (2,"George",52)
+    )).toDF("id", "uid1", "var2")
+
+    import spark.implicits._
+    val df3 = spark.sparkContext.parallelize(Seq(
+      (0,"John",31),
+      (1,"Paul",45),
+      (2,"George",53)
+    )).toDF("id", "uid1", "var3")
+
+
+    val df = List(df1, df2, df3)
+
+    df.reduce((a,b) => a.join(b, Seq("id", "uid1"))).show
+
+
+
+
+
+  }
 
 
 }

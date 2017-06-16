@@ -1,12 +1,13 @@
 package com.shankar
 
 import org.apache.spark.sql.{Row, SparkSession}
+import org.apache.spark.sql.functions._
+import org.apache.spark.sql.types.{LongType, StructField, StructType}
 import org.scalatest.{BeforeAndAfterEach, FunSuite, Outcome}
 
 /**
   * Created by sakoirala on 5/9/17.
-  */
-class ColumnToRowTest extends FunSuite with BeforeAndAfterEach {
+  */ class ColumnToRowTest extends FunSuite with BeforeAndAfterEach {
 
   val spark =
     SparkSession.builder().master("local").appName("test").getOrCreate()
