@@ -7,6 +7,7 @@ scalaVersion := "2.11.8"
 resolvers += "MavenRepository" at "https://mvnrepository.com/"
 
 libraryDependencies ++= Seq(
+  "com.googlecode.json-simple" % "json-simple" % "1.1.1",
   // https://mvnrepository.com/artifact/joda-time/joda-time
   "joda-time" % "joda-time" % "2.8.1",
 // https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.11

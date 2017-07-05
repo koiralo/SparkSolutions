@@ -15,18 +15,24 @@ object ReadingCSV extends App {
 
   val titschema = Encoders.product[tit].schema
 
-  val dfList1 = spark.read.option("inferSchema", true)csv("/home/sakoirala/IdeaProjects/SparkSolutions/src/main/resources/data1.csv")
+  val dfList1 = spark.read.option("inferSchema", true)
+      .option("header", true)
+      .option("quote", "")
+    .csv("/home/sakoirala/IdeaProjects/SparkSolutions/src/main/resources/data1.csv")
 
+
+  dfList1.filter($"a" === "2").show
   dfList1.show()
+
 
 //  val dfList = spark.createDataFrame(dfList1.rdd, titschema)
 
-  dfList1.printSchema()
+//  dfList1.printSchema()
 //  dfList.printSchema()
 //
 //  dfList.show()
 
-  dfList1.coalesce(1).rdd.saveAsTextFile("/home/sakoirala/IdeaProjects/SparkSolutions/src/main/resources/testfile.csv")
+//  dfList1.coalesce(1).rdd.saveAsTextFile("/home/sakoirala/IdeaProjects/SparkSolutions/src/main/resources/testfile.csv")
 
   case class tit(Num: String,
                  Class: String,

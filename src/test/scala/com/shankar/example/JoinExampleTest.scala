@@ -7,6 +7,8 @@ import org.apache.spark.sql.types.{IntegerType, StringType}
 import org.scalatest.{BeforeAndAfterEach, FunSuite}
 import org.apache.spark.sql.functions.mean
 
+import scala.util.{Failure, Success, Try}
+
 
 /**
   * Created by sakoirala on 6/5/17.
@@ -167,13 +169,17 @@ import spark.implicits._
       .load("/home/sakoirala/IdeaProjects/SparkSolutions/src/main/resources/nullValue.csv")
 
 
-/*    data.na.fill(data.columns.zip(
+    data.na.fill(data.columns.zip(
       data.select(data.columns.map(mean(_)): _*).first.toSeq
     ).toMap).show()
 
+    val map = Map("Name" -> "a", "Place" -> "a2")
+
+    data.na.fill(map).show()
+
     data.columns.zip(
     data.select(data.columns.map(mean(_)): _*).first().toSeq
-    ).toMap.foreach(println)*/
+    ).toMap.foreach(println)
 
     var newDF = data
     data.dtypes.foreach { x =>
@@ -182,6 +188,10 @@ import spark.implicits._
       newDF = newDF.withColumn(colName, when(col(s"`$colName`").isNull , fill).otherwise(col(s"`$colName`")) )
     }
     newDF.show(false)
+
+
+
+
 
 
 
@@ -204,24 +214,26 @@ import spark.implicits._
     (2,"George",5)
     )).toDF("id", "uid1", "var1")
 
-    import spark.implicits._
     val df2 = spark.sparkContext.parallelize(Seq(
       (0,"John",23),
       (1,"Paul",44),
       (2,"George",52)
     )).toDF("id", "uid1", "var2")
 
-    import spark.implicits._
     val df3 = spark.sparkContext.parallelize(Seq(
       (0,"John",31),
       (1,"Paul",45),
       (2,"George",53)
     )).toDF("id", "uid1", "var3")
 
+    df1.join(df2, df1("id") === df2("id"), "leftouter").show
+
+
+
 
     val df = List(df1, df2, df3)
 
-    df.reduce((a,b) => a.join(b, Seq("id", "uid1"))).show
+//    df.reduce((a,b) => a.join(b, Seq("id", "uid1"))).show
 
 
 
@@ -229,6 +241,36 @@ import spark.implicits._
 
   }
 
+  test ("test "){
+    import spark.implicits._
+    val data = spark.sparkContext.parallelize(Seq("8106f510000dc502","8106f510000dc502", "8106f510000dc502")).toDF("info")
+
+    val exec = udf((input : String) => {
+      if (input == null || input.trim == "") ""
+      else {
+        Try{
+          val ca = input.toCharArray
+          List(3,1,5,7,6,9,10,11,12,13,14,15,16,4,2).map(a=>ca(a-1)).mkString
+        } match{
+          case Success(data) => data
+          case Failure(e)  =>
+            println(e.printStackTrace())
+            ""
+        }
+      }
+    })
+
+    data.show
+    data.withColumn("newInfo", exec(data("info"))).show
+
+
+
+  }
+
+
+
+
 
 }
 case class Employee(city: String, name: String)
+

@@ -15,7 +15,9 @@ object ReadExcelFile {
 
     val file = "/home/sakoirala/Downloads/eu-historical-price-series_en.xls"
 
+    val hdfsFile = "hdfs://localhost:9000/tmp/data/facts/eu-historical-price-series_en.xls"
 
+//    ExcelToCSV.excelToCSV(hdfsFile, 31, 493)
 
   }
 
