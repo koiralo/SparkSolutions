@@ -7,7 +7,11 @@ scalaVersion := "2.11.8"
 resolvers += "MavenRepository" at "https://mvnrepository.com/"
 
 libraryDependencies ++= Seq(
+/*  "org.apache.spark" % "spark-streaming_2.10" % "2.1.0" % "provided",
+  "org.apache.kafka" % "kafka_2.10" % "0.8.2.0",*/
   "com.googlecode.json-simple" % "json-simple" % "1.1.1",
+// https://mvnrepository.com/artifact/org.apache.spark/spark-mllib_2.10
+  "org.apache.spark" % "spark-mllib_2.11" % "2.1.0",
   // https://mvnrepository.com/artifact/joda-time/joda-time
   "joda-time" % "joda-time" % "2.8.1",
 // https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.11

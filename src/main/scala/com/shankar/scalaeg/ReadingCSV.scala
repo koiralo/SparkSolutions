@@ -1,5 +1,6 @@
 package com.shankar.scalaeg
 
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.SparkSession
 
 /**
@@ -16,12 +17,13 @@ object ReadingCSV extends App {
   val titschema = Encoders.product[tit].schema
 
   val dfList1 = spark.read.option("inferSchema", true)
-      .option("header", true)
-      .option("quote", "")
+      .option("header", false)
+      .option("quote", "\"")
+    .option("ignoreLeadingWhiteSpace", true)
     .csv("/home/sakoirala/IdeaProjects/SparkSolutions/src/main/resources/data1.csv")
 
 
-  dfList1.filter($"a" === "2").show
+//  dfList1.filter($"a" === "2").show
   dfList1.show()
 
 
@@ -47,3 +49,5 @@ object ReadingCSV extends App {
                  Gender: String)
 
 }
+
+

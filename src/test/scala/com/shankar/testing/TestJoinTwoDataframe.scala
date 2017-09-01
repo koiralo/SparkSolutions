@@ -107,6 +107,39 @@ import scala.collection.mutable.ArrayBuffer
 //      .map(t => (t._1._1, t._1._2, t._1._3, t._2)).foreach(println)
 
 
+  }
+
+  test ("rdd"){
+    import spark.implicits._
+
+    val RDD1 = spark.sparkContext.parallelize(Seq(
+      (1, "2017-2-13", "ABX-3354 gsfette"),
+      (2, "2017-3-18", "TYET-3423 asdsad"),
+      (3, "2017-2-09", "TYET-3423 rewriu"),
+      (4, "2017-2-13", "ABX-3354 42324"),
+      (5, "2017-4-01", "TYET-3423 aerr")
+    ))
+
+    val RDD2 = spark.sparkContext.parallelize(Seq(
+      ("mfr1","ABX-3354"),
+      ("mfr2","TYET-3423")
+    ))
+
+    RDD1.map(r =>{
+      (r._3.split(" ")(0), (r._1, r._2, r._3))
+    })
+      .join(RDD2.map(r => (r._2, r._1)))
+      .groupBy(_._1)
+      .map(r => (r._1, r._2.toSeq.size))
+      .foreach(println)
+
+
+
+
+
+
+
+
 
   }
 }
